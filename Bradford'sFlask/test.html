@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.17.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-b2d846916834b8a354cda1db2ecc0e39"}, "mark": "bar", "encoding": {"x": {"field": "First_Digit", "type": "nominal"}, "y": {"field": "Count", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-b2d846916834b8a354cda1db2ecc0e39": [{"First_Digit": "0", "Count": 2}, {"First_Digit": "1", "Count": 5735}, {"First_Digit": "2", "Count": 3544}, {"First_Digit": "3", "Count": 2341}, {"First_Digit": "4", "Count": 1847}, {"First_Digit": "5", "Count": 1559}, {"First_Digit": "6", "Count": 1370}, {"First_Digit": "7", "Count": 1166}, {"First_Digit": "8", "Count": 1042}, {"First_Digit": "9", "Count": 903}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

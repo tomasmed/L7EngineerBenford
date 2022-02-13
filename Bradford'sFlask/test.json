@@ -1,0 +1,1 @@
+{"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "altair-data-713fdfb9d53bb1d0fcbc996bb680fc65.json", "format": {"type": "json"}}, "mark": "bar", "encoding": {"x": {"field": "First_Digit", "type": "nominal"}, "y": {"aggregate": "count", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}

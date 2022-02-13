@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.17.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"data": {"name": "data-74e4c344cc358742b3a44783cffec508"}, "mark": "bar", "encoding": {"x": {"field": "First_Digit", "type": "nominal"}, "y": {"field": "PercentOfTotal", "type": "quantitative"}}, "transform": [{"joinaggregate": [{"op": "sum", "field": "Count", "as": "TotalCount"}]}, {"calculate": "datum.Count*100.0 / datum.TotalCount", "as": "PercentOfTotal"}]}, {"data": {"name": "data-4164caf80e586e301a831cad7b83b63a"}, "mark": {"type": "line", "color": "orange"}, "encoding": {"x": {"field": "First_Digit", "type": "nominal"}, "y": {"field": "PercentOfTotal", "type": "quantitative"}}}], "height": 800, "resolve": {"scale": {"x": "shared"}}, "title": "Benford's Distribution vs 7_2009", "width": 800, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-74e4c344cc358742b3a44783cffec508": [{"First_Digit": "1", "Count": 5735}, {"First_Digit": "2", "Count": 3544}, {"First_Digit": "3", "Count": 2341}, {"First_Digit": "4", "Count": 1847}, {"First_Digit": "5", "Count": 1559}, {"First_Digit": "6", "Count": 1370}, {"First_Digit": "7", "Count": 1166}, {"First_Digit": "8", "Count": 1042}, {"First_Digit": "9", "Count": 903}], "data-4164caf80e586e301a831cad7b83b63a": [{"First_Digit": 1, "PercentOfTotal": 30.1}, {"First_Digit": 2, "PercentOfTotal": 17.6}, {"First_Digit": 3, "PercentOfTotal": 12.5}, {"First_Digit": 4, "PercentOfTotal": 9.7}, {"First_Digit": 5, "PercentOfTotal": 7.9}, {"First_Digit": 6, "PercentOfTotal": 6.7}, {"First_Digit": 7, "PercentOfTotal": 5.8}, {"First_Digit": 8, "PercentOfTotal": 5.1}, {"First_Digit": 9, "PercentOfTotal": 4.6}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
