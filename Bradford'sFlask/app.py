@@ -29,37 +29,41 @@ def uploadFiles():
         df = pd.read_csv(request.files['file'], sep = '\t')
         colname = request.form['colname']
         #chosen_col = '7_2009'
-        #uploaded_file['First_Digit'] = uploaded_file[chosen_col].astype(str).str[0]
+        #uploaded_file['Leading Digit'] = uploaded_file[chosen_col].astype(str).str[0]
 
-        Benford_dist = pd.DataFrame({ 'First_Digit': [1,2,3,4,5,6,7,8,9] , 'PercentOfTotal' : [30.1,17.6,12.5,9.7,7.9,6.7,5.8,5.1,4.6]})
+        Benford_dist = pd.DataFrame({ 'Leading Digit': [1,2,3,4,5,6,7,8,9] , 'Percentage' : [30.1,17.6,12.5,9.7,7.9,6.7,5.8,5.1,4.6]})
 
         chosen_col = colname
-        df['First_Digit'] = df[chosen_col].astype(str).str[0]
+        df['Leading Digit'] = df[chosen_col].astype(str).str[0]
 
         #Create a dataframe with the "Benford Distribution of The target column"
         ##Altair Graphing
         
-        sfg = pd.DataFrame({'Count' : df.groupby( [ 'First_Digit'] ).size()}).reset_index()
+        sfg = pd.DataFrame({'Count' : df.groupby( [ 'Leading Digit'] ).size()}).reset_index()
 
         benDist = alt.Chart(Benford_dist).mark_line(color="orange").encode(
-                    x = alt.X("First_Digit:N"),
-                    y= "PercentOfTotal:Q",
+                    x = alt.X("Leading Digit:N"),
+                    y= "Percentage:Q",
                 )
 
-        sfg = sfg[ sfg['First_Digit'] != '0']
+        sfg = sfg[ sfg['Leading Digit'] != '0']
         chart = alt.Chart(sfg).transform_joinaggregate(
             TotalCount= 'sum(Count)',
         ).transform_calculate(
-            PercentOfTotal = "datum.Count*100.0 / datum.TotalCount" 
+            Percentage = "datum.Count*100.0 / datum.TotalCount" 
         ).mark_bar().encode(
-                    x = alt.X("First_Digit:N"),
-                    y= "PercentOfTotal:Q",
+                    x = alt.X("Leading Digit:N"),
+                    y= "Percentage:Q",
                 )
         chart = (chart + benDist).resolve_scale(x="shared").properties(title="Benford's Distribution vs " + chosen_col, width= 800, height = 800 )
 
+        
+        sfg['Percent'] = sfg['Count'] *100  / sum(sfg['Count'])
+        df_p = sfg[sfg['Leading Digit'] == '1']
+        BenfordCheck = df_p['Percent']
         chart.save('test2.html')
 
-        return render_template('base2.html',shape= sfg.shape, jsondata = sfg.to_json(), graph = chart.to_json())
+        return render_template('base2.html',shape= sfg.shape, assertion = BenfordCheck.to_json(), graph = chart.to_json() ,colname=chosen_col)
 
     return  render_template('base.html')
 

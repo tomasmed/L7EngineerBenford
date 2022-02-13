@@ -2,3 +2,25 @@
 
    padding-top: 20px;
 }
+
+.margint{
+    margin-top: 5px;
+}
+
+.borderbox{
+    border: 2px black;
+}
+
+.passed{
+    color:green;
+}
+.passed::before{
+    content: "Adheres to Benford's Law";
+}
+
+.failed{
+    color:red;
+}
+.failed::before{
+    content: "Does not adhere to Benford's Law";
+}

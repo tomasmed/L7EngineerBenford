@@ -2,11 +2,14 @@
 <html>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="{{url_for('static', filename='styles.css')}}" rel="stylesheet">
+
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>L7 - EngineerBradford</title>
     </head>
     <body>
+    
         <nav class="navbar navbar-light bg-dark">
                                   
         </nav>
@@ -31,18 +34,28 @@
         </p>
 
         
-        <h1>Try it out:</h1>
-        
-        
+        <div class="container">
+        <h3>Try it out:</h3>
+            <p>Upload a tab separated file and specify a column name to check. The website will then process the file and calculate the distribution for the column specified.</p>
         <form method="POST" action="" enctype="multipart/form-data">
-            <div class="form-group">
-                    <input class ='form-control-file' type="file" name="file">
+            <div class="form-row row borderbox">
+                <div class="col-auto">
+                    <input class ="from-control" type="file" name="file">
+                </div>
+                <div class="col-auto">
                     <label for="colname">Column Name to Check: </label>
-                    <input class="form-control" type="text" name="colname" placeholder="Enter a column name">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-auto">
+                    <input class ="from-control" type="text" name="colname" placeholder="Enter a column name">
+                </div>
+                    
+            </div>
+
+            <div class="form-row ">
+                <button type="submit" class="btn btn-primary margint">Submit</button>
             </div>
         </form>
-
+    </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="{{url_for('static', filename='brads.js')}}"></script>

@@ -1,0 +1,2 @@
+
+result = document.querySelector('#verdict')

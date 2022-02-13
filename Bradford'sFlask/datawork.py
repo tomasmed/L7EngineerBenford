@@ -10,9 +10,8 @@ df['First_Digit'] = df[chosen_col].astype(str).str[0]
 print(df[df['First_Digit'] == '0'])
 
 sfg = pd.DataFrame({'Count' : df.groupby( [ 'First_Digit'] ).size()}).reset_index()
-dfg = df.groupby(['First_Digit']).size()
-dfg.add_suffix('_Count').reset_index()
 
+sfg['Percent'] = sfg['Count'] *100  / sum(sfg['Count'])
 
 chart = alt.Chart(sfg).mark_bar().encode(
             x = alt.X("First_Digit:N"),

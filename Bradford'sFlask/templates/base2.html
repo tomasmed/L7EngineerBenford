@@ -36,14 +36,21 @@
             <strong>the number 1 was the leading digit about 30% of the time</strong>.
              Benford’s law has been found to apply to population numbers, death rates, lengths of rivers, mathematical distributions given by some power law, and physical constants like atomic weights and specific heats.
         </p>
-        <h1>{{columnName}}</h1>
+        <div class="container">
+            <h2>Results:</h2> 
+            
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div id="altair-timeseries"></div>
-                
-                <!-- Placeholder for the tooltip -->
-                <div id="vis-tooltip" class="vg-tooltip"></div>
+            <h3 id="verdict"></h3>
+            <p>To "pass" the check a number 1 has to be the leading digit about 30% of the time (30% +- 5%)</p>
+            <p>Here is a box chart showing the distribution of column: "{{colname}}".</p>
+            <p>Contrasted in orange is the standard Benford Distribution as described by <a href="https://en.wikipedia.org/wiki/Benford%27s_law" target="blank">Bendford's Law</a>.  </p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="altair-timeseries"></div>
+                    
+                    <!-- Placeholder for the tooltip -->
+                    <div id="vis-tooltip" class="vg-tooltip"></div>
+                </div>
             </div>
         </div>
 
@@ -62,7 +69,17 @@
         parse({{ graph | safe }}, "altair-timeseries")
         </script>
 
+        <script> 
 
+        let x = {{assertion | safe}}
+        if(x[1]>25 && x[1]<35){
+            document.querySelector('#verdict').classList.add("passed");
+        }
+        else{
+            document.querySelector('#verdict').classList.add("failed");
+        }
+        
+        </script>
 
        
 
