@@ -1,2 +1,1 @@
 
-result = document.querySelector('#verdict')
