@@ -14,12 +14,8 @@ app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 #Sqlite3 since the whole idea of the app is pretty light
 DATABASE = '/sqlite/db'
 
-@app.route("/")
-def home():
-    return "Hello, Flask!"
-
 # Get the uploaded files
-@app.route("/Task", methods=['GET','POST'])
+@app.route("/", methods=['GET','POST'])
 def uploadFiles():
     # get the uploaded file
     
@@ -66,26 +62,3 @@ def uploadFiles():
         return render_template('base2.html',shape= sfg.shape, assertion = BenfordCheck.to_json(), graph = chart.to_json() ,colname=chosen_col)
 
     return  render_template('base.html')
-
-
-@app.route("/Task/test", methods=['GET','POST'])
-def Task():
-    if request.method == 'POST':
-        #uploaded_file = pd.read_csv(request.files['file'], sep = '\t')
-        df = pd.read_csv(request.files['file'], sep = '\t')
-
-        return render_template("col_pick.html",cols = df.columns)
-
-    return render_template("base.html")
-
-
-
-def parseCSV(filePath):
-      # CVS Column Names
-      col_names = ['first_name','last_name','address', 'street', 'state' , 'zip']
-      # Use Pandas to parse the CSV file
-      csvData = pd.read_csv(filePath,names=col_names, header=None)
-      # Loop through the Rows
-      for i,row in csvData.iterrows():
-            print(i,row['first_name'],row['last_name'],row['address'],row['street'],row['state'],row['zip'],)
-
